@@ -49,6 +49,12 @@ module.exports = {
     },
     {
       type: 'confirm',
+      name: 'wantEpic',
+      default: true,
+      message: 'Do you want epics for asynchronous flows? (e.g. fetching data)',
+    },
+    {
+      type: 'confirm',
       name: 'wantMessages',
       default: true,
       message: 'Do you want i18n messages (i.e. will this component use text)?',
@@ -78,7 +84,7 @@ module.exports = {
     ];
 
     // If component wants tests
-    if (data.wantMessages) {
+    if (data.wantTests) {
       actions.push({
         type: 'add',
         path: '../../app/containers/{{properCase name}}/tests/index.test.ts',
@@ -164,6 +170,21 @@ module.exports = {
         type: 'add',
         path: '../../app/containers/{{properCase name}}/tests/saga.test.ts',
         templateFile: './container/saga.test.ts.hbs',
+        abortOnFail: true,
+      });
+    }
+
+    if (data.wantEpic) {
+      actions.push({
+        type: 'add',
+        path: '../../app/containers/{{properCase name}}/epic.ts',
+        templateFile: './container/epic.ts.hbs',
+        abortOnFail: true,
+      });
+      actions.push({
+        type: 'add',
+        path: '../../app/containers/{{properCase name}}/tests/epic.test.ts',
+        templateFile: './container/epic.test.ts.hbs',
         abortOnFail: true,
       });
     }
