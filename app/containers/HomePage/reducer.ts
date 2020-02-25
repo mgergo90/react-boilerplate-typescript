@@ -15,7 +15,6 @@ function homeReducer(
   switch (action.type) {
     case ActionTypes.CHANGE_USERNAME:
       return {
-        // Delete prefixed '@' from the github username
         username: action.payload.replace(/@/gi, ''),
       };
     default:

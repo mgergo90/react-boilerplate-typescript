@@ -25,7 +25,8 @@ import { loadRepos } from '../App/actions';
 import { changeUsername } from './actions';
 import { makeSelectUsername } from './selectors';
 import reducer from './reducer';
-import saga from './saga';
+import useInjectEpic from 'utils/injectEpic';
+import epic from './epic';
 
 const key = 'home';
 
@@ -42,8 +43,8 @@ export default function HomePage() {
   const dispatch = useDispatch();
 
   // Not gonna declare event types here. No need. any is fine
-  const onChangeUsername = (evt: any) => dispatch(changeUsername(evt.target.value));
-  const onSubmitForm = (evt?: any) => {
+  const onChangeUsername = (evt: React.ChangeEvent<HTMLInputElement>) => dispatch(changeUsername(evt.target.value));
+  const onSubmitForm = (evt?: React.FormEvent<HTMLFormElement>) => {
     if (evt !== undefined && evt.preventDefault) {
       evt.preventDefault();
     }
@@ -54,7 +55,7 @@ export default function HomePage() {
   };
 
   useInjectReducer({ key: key, reducer: reducer });
-  useInjectSaga({ key: key, saga: saga });
+  useInjectEpic({key, epic});
 
   useEffect(() => {
     // When initial state username is not null, submit the form to load repos
