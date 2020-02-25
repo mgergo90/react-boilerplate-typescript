@@ -8,13 +8,19 @@ import createSagaMiddleware from 'redux-saga';
 import createReducer from './reducers';
 import { InjectedStore, ApplicationRootState } from 'types';
 import { History } from 'history';
+import {createEpicMiddleware, ofType, ActionsObservable, StateObservable} from 'redux-observable';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import { Subject, Observable } from 'rxjs';
+import {mergeMap} from 'rxjs/operators';
+import { ActionType } from 'typesafe-actions';
+
 
 export default function configureStore(initialState: ApplicationRootState | {} = {}, history: History) {
   const reduxSagaMonitorOptions = {};
   const sagaMiddleware = createSagaMiddleware(reduxSagaMonitorOptions);
+  const epicMiddleware = createEpicMiddleware();
 
-  const middlewares = [sagaMiddleware, routerMiddleware(history)];
+  const middlewares = [sagaMiddleware, routerMiddleware(history), epicMiddleware];
 
   let enhancer = applyMiddleware(...middlewares);
 
@@ -23,13 +29,6 @@ export default function configureStore(initialState: ApplicationRootState | {} =
   if (process.env.NODE_ENV !== 'production' && typeof window === 'object') {
     enhancer = composeWithDevTools(enhancer);
   }
-
-  // NOTE: Uncomment the code below to restore support for Redux Saga
-  // Dev Tools once it supports redux-saga version 1.x.x
-  // if (window.__SAGA_MONITOR_EXTENSION__)
-  //   reduxSagaMonitorOptions = {
-  //     sagaMonitor: window.__SAGA_MONITOR_EXTENSION__,
-  //   };
 
 
   // Create the store with two middlewares
@@ -42,10 +41,21 @@ export default function configureStore(initialState: ApplicationRootState | {} =
     enhancer,
   ) as InjectedStore;
 
+  store.epic$ = new Subject();
+  const hotReloadingEpic = (action$: ActionsObservable<any>, state$?: StateObservable<any>): Observable<ActionType<any>> =>
+    store.epic$.pipe(
+      mergeMap((epic: any) =>
+        epic(action$, state$)
+      ),
+    );
+
+  epicMiddleware.run(hotReloadingEpic);
+
   // Extensions
   store.runSaga = sagaMiddleware.run;
   store.injectedReducers = {}; // Reducer registry
   store.injectedSagas = {}; // Saga registry
+  store.injectedEpics = {};
 
   // Make reducers hot reloadable, see http://mxs.is/googmo
   /* istanbul ignore next */
