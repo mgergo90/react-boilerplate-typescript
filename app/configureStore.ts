@@ -6,14 +6,12 @@ import { applyMiddleware, createStore } from 'redux';
 import { routerMiddleware } from 'connected-react-router';
 import createSagaMiddleware from 'redux-saga';
 import createReducer from './reducers';
-import { InjectedStore, ApplicationRootState } from 'types';
+import { InjectedStore, ApplicationRootState, Action } from 'types';
 import { History } from 'history';
-import {createEpicMiddleware, ofType, ActionsObservable, StateObservable} from 'redux-observable';
+import {createEpicMiddleware, ofType, ActionsObservable, StateObservable, Epic} from 'redux-observable';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { Subject, Observable } from 'rxjs';
 import {mergeMap} from 'rxjs/operators';
-import { ActionType } from 'typesafe-actions';
-
 
 export default function configureStore(initialState: ApplicationRootState | {} = {}, history: History) {
   const reduxSagaMonitorOptions = {};
@@ -41,11 +39,11 @@ export default function configureStore(initialState: ApplicationRootState | {} =
     enhancer,
   ) as InjectedStore;
 
-  store.epic$ = new Subject();
-  const hotReloadingEpic = (action$: ActionsObservable<any>, state$?: StateObservable<any>): Observable<ActionType<any>> =>
+  store.epic$ = new Subject<ApplicationRootState>();
+  const hotReloadingEpic = (action$: ActionsObservable<Action>, state$: StateObservable<any>, dependencies?: any): Observable<Action> =>
     store.epic$.pipe(
-      mergeMap((epic: any) =>
-        epic(action$, state$)
+      mergeMap((epic: Epic) =>
+        epic(action$, state$, dependencies)
       ),
     );
 
@@ -55,7 +53,7 @@ export default function configureStore(initialState: ApplicationRootState | {} =
   store.runSaga = sagaMiddleware.run;
   store.injectedReducers = {}; // Reducer registry
   store.injectedSagas = {}; // Saga registry
-  store.injectedEpics = {};
+  store.injectedEpics = {}; // Epic registry
 
   // Make reducers hot reloadable, see http://mxs.is/googmo
   /* istanbul ignore next */

@@ -1,12 +1,21 @@
-import { Reducer, Store } from 'redux';
+import { Reducer, Store, Observer } from 'redux';
 import { RouterState } from 'connected-react-router';
 import { ContainerState as LanguageProviderState } from 'containers/LanguageProvider/types';
 import { ContainerState as AppState } from 'containers/App/types';
 import { ContainerState as HomeState } from 'containers/HomePage/types';
+import { Observable, Subject } from 'rxjs';
+import { ActionType } from 'typesafe-actions';
+import { Epic } from 'redux-observable';
+
+export type Action = ActionType<any>;
 
 export interface InjectedStore extends Store {
   injectedReducers: any;
   injectedSagas: any;
+  epic$: Observable<any>;
+  injectedEpics: {
+    [key: string]: Epic;
+  };
   runSaga(
     saga: (() => IterableIterator<any>) | undefined,
     args: any | undefined,
@@ -16,6 +25,11 @@ export interface InjectedStore extends Store {
 export interface InjectReducerParams {
   key: keyof ApplicationRootState;
   reducer: Reducer<any, any>;
+}
+
+export interface InjectedEpicParams {
+  key: keyof ApplicationRootState;
+  epic: any;
 }
 
 export interface InjectSagaParams {
