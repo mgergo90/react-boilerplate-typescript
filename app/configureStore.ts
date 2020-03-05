@@ -28,11 +28,6 @@ export default function configureStore(initialState: ApplicationRootState | {} =
     enhancer = composeWithDevTools(enhancer);
   }
 
-
-  // Create the store with two middlewares
-  // 1. sagaMiddleware: Makes redux-sagas work
-  // 2. routerMiddleware: Syncs the location/URL path to the state
-
   const store = createStore(
     createReducer(),
     initialState,
@@ -49,10 +44,7 @@ export default function configureStore(initialState: ApplicationRootState | {} =
 
   epicMiddleware.run(hotReloadingEpic);
 
-  // Extensions
-  store.runSaga = sagaMiddleware.run;
   store.injectedReducers = {}; // Reducer registry
-  store.injectedSagas = {}; // Saga registry
   store.injectedEpics = {}; // Epic registry
 
   // Make reducers hot reloadable, see http://mxs.is/googmo
