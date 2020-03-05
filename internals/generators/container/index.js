@@ -43,12 +43,6 @@ module.exports = {
     },
     {
       type: 'confirm',
-      name: 'wantSaga',
-      default: true,
-      message: 'Do you want sagas for asynchronous flows? (e.g. fetching data)',
-    },
-    {
-      type: 'confirm',
       name: 'wantEpic',
       default: true,
       message: 'Do you want epics for asynchronous flows? (e.g. fetching data)',
@@ -154,22 +148,6 @@ module.exports = {
         type: 'add',
         path: '../../app/containers/{{properCase name}}/tests/reducer.test.ts',
         templateFile: './container/reducer.test.ts.hbs',
-        abortOnFail: true,
-      });
-    }
-
-    // Sagas
-    if (data.wantSaga) {
-      actions.push({
-        type: 'add',
-        path: '../../app/containers/{{properCase name}}/saga.ts',
-        templateFile: './container/saga.ts.hbs',
-        abortOnFail: true,
-      });
-      actions.push({
-        type: 'add',
-        path: '../../app/containers/{{properCase name}}/tests/saga.test.ts',
-        templateFile: './container/saga.test.ts.hbs',
         abortOnFail: true,
       });
     }
