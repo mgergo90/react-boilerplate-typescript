@@ -11,15 +11,10 @@ export type Action = ActionType<any>;
 
 export interface InjectedStore extends Store {
   injectedReducers: any;
-  injectedSagas: any;
-  epic$: Observable<any>;
+  epic$: any;
   injectedEpics: {
     [key: string]: Epic;
   };
-  runSaga(
-    saga: (() => IterableIterator<any>) | undefined,
-    args: any | undefined,
-  ): any;
 }
 
 export interface InjectReducerParams {
