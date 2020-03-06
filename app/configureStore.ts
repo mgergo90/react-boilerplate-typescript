@@ -35,12 +35,13 @@ export default function configureStore(initialState: ApplicationRootState | {} =
   ) as InjectedStore;
 
   store.epic$ = new Subject<ApplicationRootState>();
-  const hotReloadingEpic = (action$: ActionsObservable<Action>, state$: StateObservable<any>, dependencies?: any): Observable<Action> =>
-    store.epic$.pipe(
-      mergeMap((epic: Epic) =>
-        epic(action$, state$, dependencies)
-      ),
-    );
+  const hotReloadingEpic =
+    (action$: ActionsObservable<Action>, state$: StateObservable<any>, dependencies?: any): Observable<Action> =>
+      store.epic$.pipe(
+        mergeMap((epic: Epic) =>
+          epic(action$, state$, dependencies),
+        ),
+      );
 
   epicMiddleware.run(hotReloadingEpic);
 
