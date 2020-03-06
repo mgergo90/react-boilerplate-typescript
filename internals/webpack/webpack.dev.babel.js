@@ -72,6 +72,6 @@ module.exports = require('./webpack.base.babel')({
   devtool: 'cheap-module-source-map',
 
   performance: {
-    hints: false,
+    hints: 'warning',
   },
 });
