@@ -1,11 +1,14 @@
-import { Reducer, Store } from 'redux';
+import { Reducer, Store, Observable } from 'redux';
 import { RouterState } from 'connected-react-router';
 import { ContainerState as LanguageProviderState } from 'containers/LanguageProvider/types';
+import { ActionType } from 'typesafe-actions';
+
+export type Action = ActionType<any>;
 
 export interface InjectedStore extends Store {
   injectedReducers: any;
-  injectedSagas: any;
-  runSaga(saga: (() => IterableIterator<any>) | undefined, args: any | undefined): any;
+  injectedEpics: any;
+  epic$: any;
 }
 
 export interface InjectReducerParams {
