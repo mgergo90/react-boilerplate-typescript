@@ -26,6 +26,7 @@
     "strictFunctionTypes": false,
     "pretty": true,
     "removeComments": true,
+    "skipLibCheck": true,
     "sourceMap": true
   },
   "include": ["app/**/*", "internals/templates/**/*"],
