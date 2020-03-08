@@ -58,7 +58,7 @@ module.exports = require('./webpack.base.babel')({
     {
       loader: 'ts-loader',
       options: {
-        transpileOnly: false, // fork-ts-checker-webpack-plugin is used for type checking
+        transpileOnly: true, // fork-ts-checker-webpack-plugin is used for type checking
         logLevel: 'info',
         getCustomTransformers: () => ({
           before: [styledComponentsTransformer],
