@@ -64,7 +64,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "docker-compose run --rm yarn yarn run lint:tslint"
+      "pre-commit": "yarn run lint:tslint"
     }
   },
   "resolutions": {
