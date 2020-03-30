@@ -4,49 +4,39 @@ exports[`<HomePage /> should render and match the snapshot 1`] = `
 <article>
   <div>
     <section
-      class="sc-gqjmRU sc-VigVT bCueft"
+      class="sc-fzplWN sc-fznyAO YwKGU"
     >
       <h2
-        class="sc-bdVaJa dAIgSr"
+        class="sc-AxjAm dAwvnB"
       >
-        <span>
-          Start your next react project in seconds
-        </span>
+        Start your next react project in seconds
       </h2>
       <p>
-        <span>
-          A highly scalable, offline-first foundation with the best DX and a focus on performance and best practices
-        </span>
+        A highly scalable, offline-first foundation with the best DX and a focus on performance and best practices
       </p>
     </section>
     <section
-      class="sc-gqjmRU fgHQxZ"
+      class="sc-fzplWN hMDonW"
     >
       <h2
-        class="sc-bdVaJa dAIgSr"
+        class="sc-AxjAm dAwvnB"
       >
-        <span>
-          Try me!
-        </span>
+        Try me!
       </h2>
       <form
-        class="sc-jTzLTM fzeZHJ"
+        class="sc-fznKkj PQxVy"
       >
         <label
           for="username"
         >
-          <span>
-            Show Github repositories by
-          </span>
+          Show Github repositories by
           <span
-            class="sc-gZMcBi gIzYNa"
+            class="sc-fzpans deXdJw"
           >
-            <span>
-              @
-            </span>
+            @
           </span>
           <input
-            class="sc-fjdhpX bmAVzu"
+            class="sc-fznZeY kHBSZP"
             id="username"
             placeholder="mxstbr"
             type="text"
@@ -55,10 +45,10 @@ exports[`<HomePage /> should render and match the snapshot 1`] = `
         </label>
       </form>
       <div
-        class="sc-htpNat bnclQV"
+        class="sc-AxiKw dnFUXj"
       >
         <ul
-          class="sc-bwzfXH bypwNT"
+          class="sc-AxirZ hXJCZk"
         />
       </div>
     </section>

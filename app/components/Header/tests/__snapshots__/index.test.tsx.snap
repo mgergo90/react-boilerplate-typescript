@@ -3,33 +3,29 @@
 exports[`<Header /> should render a div 1`] = `
 <div>
   <a
-    class="sc-bdVaJa sc-bwzfXH fAferc"
+    class="sc-AxjAm sc-AxirZ bzNuzD"
     href="https://www.reactboilerplate.com/"
   >
     <img
       alt="react-boilerplate - Logo"
-      class="sc-htpNat ckduvH"
+      class="sc-AxiKw gimwlj"
       src="IMAGE_MOCK"
     />
   </a>
   <div
-    class="sc-bxivhb EYjjH"
+    class="sc-AxhCb cinyOp"
   >
     <a
-      class="sc-ifAKCX cIlifk"
+      class="sc-AxhUy fgxqMS"
       href="/"
     >
-      <span>
-        Home
-      </span>
+      Home
     </a>
     <a
-      class="sc-ifAKCX cIlifk"
+      class="sc-AxhUy fgxqMS"
       href="/features"
     >
-      <span>
-        Features
-      </span>
+      Features
     </a>
   </div>
 </div>
