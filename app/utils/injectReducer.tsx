@@ -46,9 +46,7 @@ export default function hocWithReducer<P>({
 
 const useInjectReducer = ({ key, reducer }: InjectReducerParams) => {
   const store = useStore() as InjectedStore;
-  React.useEffect(() => {
-    getInjectors(store).injectReducer(key, reducer);
-  }, []);
+  getInjectors(store).injectReducer(key, reducer);
 };
 
 export { useInjectReducer };

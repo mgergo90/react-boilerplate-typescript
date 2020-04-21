@@ -11,7 +11,7 @@ export type Action = ActionType<any>;
 
 export interface InjectedStore extends Store {
   injectedReducers: any;
-  epic$: any;
+  epic$: Observable;
   injectedEpics: {
     [key: string]: Epic;
   };
@@ -23,8 +23,8 @@ export interface InjectReducerParams {
 }
 
 export interface InjectedEpicParams {
-  key: keyof ApplicationRootState;
-  epic: any;
+  key: string;
+  epic: Epic;
 }
 
 export interface InjectSagaParams {
@@ -42,3 +42,5 @@ export interface ApplicationRootState {
   // for testing purposes
   readonly test: any;
 }
+
+export type WithState<T> = [T, ApplicationRootState];
